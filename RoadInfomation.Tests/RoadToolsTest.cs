@@ -1,6 +1,6 @@
 ﻿namespace RoadInfomation.Tests;
 
-public class BridgesTest
+public class RoadToolsTest
 {
     [Fact]
     public void TestGetBridges()
