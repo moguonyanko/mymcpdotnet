@@ -11,9 +11,13 @@ public static class RoadTools
   [McpServerTool, Description("指定された経緯度を元に橋梁の情報を取得します。")]
   public static async Task<string> GetBridgesByArea(
       HttpClient client,
-      [Description("検索範囲を示す座標の配列です。書式は「北緯の下限,北緯の上限,東経の下限,東経の上限」です。")] double[] area)
+      // ★変更: 引数をリクエストボディの型に変更
+      // McpServerTool が自動的にリクエストボディをこの型にデシリアライズすることを想定
+      [Description("検索範囲を示す座標の配列です。書式は「北緯の下限,北緯の上限,東経の下限,東経の上限」です。")] GetBridgesByAreaRequest request)
   {
-    var jsonElement = await client.GetFromJsonAsync<JsonElement>($"/bridges/{area[0]},{area[1]},{area[2]},{area[3]}");
+    // ★変更: request.Area から値を取得
+    var jsonElement = await client.GetFromJsonAsync<JsonElement>($"/bridges/{request.Area[0]},{request.Area[1]},{request.Area[2]},{request.Area[3]}");
+
     var emptyResult = new
     {
       code = "404",
