@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace RoadInfomationServer.Tools;
+namespace RoadInfomation.Tools;
 
 [McpServerToolType]
 public static class RoadTools
