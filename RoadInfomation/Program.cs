@@ -16,8 +16,10 @@ builder.Services.AddMcpServer()
 
 builder.Services.AddSingleton(_ =>
 {
-  var client = new HttpClient() { BaseAddress = new Uri("https://road-structures-db.mlit.go.jp/xROAD/api/v1") };
-  client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("my-road-tool", "1.0"));
+  var client = new HttpClient() {
+    BaseAddress = new Uri("https://road-structures-db.mlit.go.jp/xROAD/api/v1") 
+  };
+  client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("my-road-tools", "1.0"));
   return client;
 });
 
