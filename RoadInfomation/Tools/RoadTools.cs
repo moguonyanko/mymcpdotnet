@@ -22,18 +22,30 @@ public static class RoadTools
     Console.Error.WriteLine($"--------------------------");
   }
 
+  private static void DumpRequestHeaders(HttpClient client)
+  {
+    Console.Error.WriteLine($"--- リクエストヘッダーの内容 ---");
+    foreach (var header in client.DefaultRequestHeaders)
+    {
+      Console.Error.WriteLine($"{header.Key}: {string.Join(", ", header.Value)}");
+    }
+    Console.Error.WriteLine($"--------------------------");
+  }
+
   [McpServerTool, Description("指定された経緯度を元に橋梁の情報を取得します。")]
   public static async Task<string> GetBridgesByArea(
       HttpClient client,
       [Description("検索範囲を示す座標の配列です。書式は「北緯の下限,北緯の上限,東経の下限,東経の上限」です。")] GetBridgesByAreaRequest request)
   {
     DumpRequestJson(request);
+    DumpRequestHeaders(client);
 
     var emptyResult = new
     {
       code = "404",
       message = "指定された範囲には橋梁情報が見つかりませんでした。"
     };
+    
     JsonElement jsonElement;
     try
     {
